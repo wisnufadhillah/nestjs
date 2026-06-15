@@ -320,16 +320,3 @@ Dengan pola ini, fitur baru bisa ditambahkan tanpa mencampur semua logic di satu
 ### 1g. Dokumentasi API
 
 Dokumentasi endpoint sudah ditulis di bagian **Dokumentasi API** pada README ini. Dokumentasi ini bisa langsung dipakai sebagai panduan membuat collection Postman.
-
-## Alur Demo Screen Record
-
-1. Tunjukkan struktur folder `src/auth`, `src/projects`, `src/tasks`, dan `src/users`.
-2. Tunjukkan file `.env` tanpa memperlihatkan password asli terlalu lama.
-3. Jalankan aplikasi dengan `npm run start:dev`.
-4. Register user lewat Postman.
-5. Copy `accessToken` dari response.
-6. Coba akses `GET /projects` tanpa token untuk menunjukkan `401 Unauthorized`.
-7. Tambahkan header `Authorization: Bearer token`.
-8. Buat project dengan `POST /projects`.
-9. Buat task dengan `POST /tasks` memakai `projectId` dari project.
-10. Jalankan `npm run test:e2e` untuk menunjukkan test token API.
