@@ -1,98 +1,335 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Internship Dotco API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Simple REST API menggunakan NestJS, TypeScript, PostgreSQL, TypeORM, dan JWT authentication.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Fitur
 
-## Description
+- Register dan login user.
+- JWT token untuk endpoint protected.
+- CRUD `projects` milik user.
+- CRUD `tasks` yang berelasi dengan `projects`.
+- E2E test untuk memastikan endpoint protected membutuhkan token.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Setup Project
 
-## Project setup
+Install dependency:
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+Buat database PostgreSQL di pgAdmin, contoh:
+
+```sql
+CREATE DATABASE internship_dotco;
+```
+
+Buat file `.env` di root project:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=password_postgres_kamu
+DB_DATABASE=internship_dotco
+JWT_SECRET=rahasia-jwt-demo
+```
+
+Jalankan aplikasi:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Run tests
+Base URL:
+
+```text
+http://localhost:3000
+```
+
+## Testing
+
+Unit test:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run test
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+E2E test:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Build:
 
-## Resources
+```bash
+npm run build
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Dokumentasi API
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Gunakan Postman, Thunder Client, atau REST client lain.
 
-## Support
+### Auth
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Register:
 
-## Stay in touch
+```http
+POST /auth/register
+Content-Type: application/json
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```json
+{
+  "name": "Demo User",
+  "email": "demo@gmail.com",
+  "password": "password123"
+}
+```
 
-## License
+Login:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```http
+POST /auth/login
+Content-Type: application/json
+```
+
+```json
+{
+  "email": "demo@gmail.com",
+  "password": "password123"
+}
+```
+
+Response auth:
+
+```json
+{
+  "accessToken": "jwt-token"
+}
+```
+
+Untuk endpoint protected, tambahkan header:
+
+```http
+Authorization: Bearer jwt-token
+```
+
+### Projects
+
+Create project:
+
+```http
+POST /projects
+Authorization: Bearer jwt-token
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Internship Project",
+  "description": "Project demo"
+}
+```
+
+List projects:
+
+```http
+GET /projects
+Authorization: Bearer jwt-token
+```
+
+Detail project:
+
+```http
+GET /projects/:id
+Authorization: Bearer jwt-token
+```
+
+Update project:
+
+```http
+PATCH /projects/:id
+Authorization: Bearer jwt-token
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Updated Project"
+}
+```
+
+Delete project:
+
+```http
+DELETE /projects/:id
+Authorization: Bearer jwt-token
+```
+
+### Tasks
+
+Create task:
+
+```http
+POST /tasks
+Authorization: Bearer jwt-token
+Content-Type: application/json
+```
+
+```json
+{
+  "title": "Belajar NestJS",
+  "description": "Membuat CRUD sederhana",
+  "projectId": 1,
+  "status": "todo"
+}
+```
+
+Status task yang tersedia:
+
+```text
+todo, in_progress, done
+```
+
+List tasks:
+
+```http
+GET /tasks
+Authorization: Bearer jwt-token
+```
+
+Detail task:
+
+```http
+GET /tasks/:id
+Authorization: Bearer jwt-token
+```
+
+Update task:
+
+```http
+PATCH /tasks/:id
+Authorization: Bearer jwt-token
+Content-Type: application/json
+```
+
+```json
+{
+  "status": "done"
+}
+```
+
+Delete task:
+
+```http
+DELETE /tasks/:id
+Authorization: Bearer jwt-token
+```
+
+## Penjelasan Ketentuan Tes
+
+### 1a. Minimal 2 Operasi CRUD yang Saling Berkaitan
+
+Project ini memiliki dua CRUD utama:
+
+- `projects`: user dapat membuat, melihat, mengubah, dan menghapus project.
+- `tasks`: user dapat membuat, melihat, mengubah, dan menghapus task.
+
+Relasinya adalah satu `Project` dapat memiliki banyak `Task`. Saat membuat task, request wajib mengirim `projectId`, sehingga task selalu terhubung ke project.
+
+### 1b. Menyimpan Data Menggunakan Database SQL
+
+Database yang digunakan adalah PostgreSQL. Integrasi database memakai TypeORM.
+
+Entity yang dibuat:
+
+- `User`
+- `Project`
+- `Task`
+
+Konfigurasi database ada di `src/config/typeorm.config.ts` dan nilai koneksi dibaca dari file `.env`.
+
+### 1c. Authentication API Menggunakan JWT Token
+
+Authentication dibuat di `AuthModule`.
+
+Endpoint auth:
+
+- `POST /auth/register`
+- `POST /auth/login`
+
+Setelah register atau login berhasil, API mengembalikan `accessToken`. Token ini dipakai pada header:
+
+```http
+Authorization: Bearer accessToken
+```
+
+Endpoint `projects` dan `tasks` dilindungi oleh `JwtAuthGuard`, jadi tidak bisa diakses tanpa token.
+
+### 1d. E2E Testing untuk Test Token API
+
+E2E test ada di `test/app.e2e-spec.ts`.
+
+Yang dites:
+
+- `GET /projects` tanpa token harus menghasilkan `401 Unauthorized`.
+- `POST /auth/register` harus menghasilkan JWT token.
+- Token dari register bisa dipakai untuk membuat dan melihat project.
+
+Jalankan test:
+
+```bash
+npm run test:e2e
+```
+
+Pastikan database dan `.env` sudah benar sebelum menjalankan e2e test.
+
+### 1e. Pattern Project yang Digunakan
+
+Pattern yang digunakan adalah modular architecture bawaan NestJS.
+
+Struktur utama:
+
+```text
+src/auth
+src/users
+src/projects
+src/tasks
+src/config
+```
+
+Setiap fitur dipisah menjadi module, controller, service, DTO, dan entity.
+
+### 1f. Alasan Menggunakan Pattern Tersebut
+
+Modular architecture dipilih karena umum digunakan di project NestJS dan mudah dijelaskan untuk pemula.
+
+Alasannya:
+
+- Controller fokus menerima request dan mengembalikan response.
+- Service fokus pada business logic.
+- Entity fokus pada struktur tabel database.
+- DTO fokus pada validasi request body.
+- Module mengelompokkan fitur agar struktur project lebih rapi.
+
+Dengan pola ini, fitur baru bisa ditambahkan tanpa mencampur semua logic di satu file.
+
+### 1g. Dokumentasi API
+
+Dokumentasi endpoint sudah ditulis di bagian **Dokumentasi API** pada README ini. Dokumentasi ini bisa langsung dipakai sebagai panduan membuat collection Postman.
+
+## Alur Demo Screen Record
+
+1. Tunjukkan struktur folder `src/auth`, `src/projects`, `src/tasks`, dan `src/users`.
+2. Tunjukkan file `.env` tanpa memperlihatkan password asli terlalu lama.
+3. Jalankan aplikasi dengan `npm run start:dev`.
+4. Register user lewat Postman.
+5. Copy `accessToken` dari response.
+6. Coba akses `GET /projects` tanpa token untuk menunjukkan `401 Unauthorized`.
+7. Tambahkan header `Authorization: Bearer token`.
+8. Buat project dengan `POST /projects`.
+9. Buat task dengan `POST /tasks` memakai `projectId` dari project.
+10. Jalankan `npm run test:e2e` untuk menunjukkan test token API.
